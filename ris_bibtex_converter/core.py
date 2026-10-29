@@ -145,9 +145,7 @@ def write_ris(records):
             if r.get(k):
                 lines.append("%s  - %s" % (tag, r[k]))
         if r.get("pages"):
-            sp, _, ep = re.split(r"\s*-{1,2}\s*|–", r["pages"]) + ["", ""] if False else r["pages"].partition("--")
-            if not ep and "-" in sp:
-                sp, _, ep = sp.partition("-")
+            sp, ep = (re.split(r"\s*(?:--|-|–)\s*", r["pages"], maxsplit=1) + [""])[:2]
             lines.append("SP  - " + sp.strip())
             if ep:
                 lines.append("EP  - " + ep.strip())
